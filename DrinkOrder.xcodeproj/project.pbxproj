@@ -9,21 +9,37 @@
 /* Begin PBXBuildFile section */
 		04A99D272595DBA900AEE67F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D262595DBA900AEE67F /* AppDelegate.swift */; };
 		04A99D292595DBA900AEE67F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D282595DBA900AEE67F /* SceneDelegate.swift */; };
-		04A99D2B2595DBA900AEE67F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D2A2595DBA900AEE67F /* ViewController.swift */; };
 		04A99D2E2595DBA900AEE67F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A99D2C2595DBA900AEE67F /* Main.storyboard */; };
 		04A99D302595DBAE00AEE67F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A99D2F2595DBAE00AEE67F /* Assets.xcassets */; };
 		04A99D332595DBAE00AEE67F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A99D312595DBAE00AEE67F /* LaunchScreen.storyboard */; };
+		04A99D43259845FF00AEE67F /* DrinkMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D42259845FF00AEE67F /* DrinkMenu.swift */; };
+		04A99D67259896DB00AEE67F /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D66259896DA00AEE67F /* MenuCollectionViewCell.swift */; };
+		04A99D6A25989A2400AEE67F /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D6925989A2400AEE67F /* MenuViewController.swift */; };
+		04A99D72259A131100AEE67F /* DrinkOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D71259A130F00AEE67F /* DrinkOrderViewController.swift */; };
+		04A99D75259A13BE00AEE67F /* CustomSelectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D74259A13BE00AEE67F /* CustomSelectionEnum.swift */; };
+		04A99D78259A265700AEE67F /* DrinkOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D77259A265600AEE67F /* DrinkOrderTableViewCell.swift */; };
+		04A99D80259C5BDA00AEE67F /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D7F259C5BD700AEE67F /* Order.swift */; };
+		04A99D83259C670000AEE67F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D82259C66FF00AEE67F /* HomeViewController.swift */; };
+		04A99D86259C6BFF00AEE67F /* OrdererTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D85259C6BFF00AEE67F /* OrdererTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04A99D232595DBA900AEE67F /* DrinkOrder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrinkOrder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A99D262595DBA900AEE67F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04A99D282595DBA900AEE67F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		04A99D2A2595DBA900AEE67F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04A99D2D2595DBA900AEE67F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04A99D2F2595DBAE00AEE67F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04A99D322595DBAE00AEE67F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04A99D342595DBAE00AEE67F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04A99D42259845FF00AEE67F /* DrinkMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkMenu.swift; sourceTree = "<group>"; };
+		04A99D66259896DA00AEE67F /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		04A99D6925989A2400AEE67F /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		04A99D71259A130F00AEE67F /* DrinkOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkOrderViewController.swift; sourceTree = "<group>"; };
+		04A99D74259A13BE00AEE67F /* CustomSelectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectionEnum.swift; sourceTree = "<group>"; };
+		04A99D77259A265600AEE67F /* DrinkOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkOrderTableViewCell.swift; sourceTree = "<group>"; };
+		04A99D7F259C5BD700AEE67F /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		04A99D82259C66FF00AEE67F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		04A99D85259C6BFF00AEE67F /* OrdererTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdererTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +56,9 @@
 		04A99D1A2595DBA900AEE67F = {
 			isa = PBXGroup;
 			children = (
+				04A99D3D259825BA00AEE67F /* View */,
+				04A99D3C259824EE00AEE67F /* Controller */,
+				04A99D3B259824DA00AEE67F /* Model */,
 				04A99D252595DBA900AEE67F /* DrinkOrder */,
 				04A99D242595DBA900AEE67F /* Products */,
 			);
@@ -58,13 +77,42 @@
 			children = (
 				04A99D262595DBA900AEE67F /* AppDelegate.swift */,
 				04A99D282595DBA900AEE67F /* SceneDelegate.swift */,
-				04A99D2A2595DBA900AEE67F /* ViewController.swift */,
 				04A99D2C2595DBA900AEE67F /* Main.storyboard */,
 				04A99D2F2595DBAE00AEE67F /* Assets.xcassets */,
 				04A99D312595DBAE00AEE67F /* LaunchScreen.storyboard */,
 				04A99D342595DBAE00AEE67F /* Info.plist */,
 			);
 			path = DrinkOrder;
+			sourceTree = "<group>";
+		};
+		04A99D3B259824DA00AEE67F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				04A99D42259845FF00AEE67F /* DrinkMenu.swift */,
+				04A99D74259A13BE00AEE67F /* CustomSelectionEnum.swift */,
+				04A99D7F259C5BD700AEE67F /* Order.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		04A99D3C259824EE00AEE67F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				04A99D6925989A2400AEE67F /* MenuViewController.swift */,
+				04A99D71259A130F00AEE67F /* DrinkOrderViewController.swift */,
+				04A99D82259C66FF00AEE67F /* HomeViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		04A99D3D259825BA00AEE67F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				04A99D66259896DA00AEE67F /* MenuCollectionViewCell.swift */,
+				04A99D77259A265600AEE67F /* DrinkOrderTableViewCell.swift */,
+				04A99D85259C6BFF00AEE67F /* OrdererTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +185,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04A99D2B2595DBA900AEE67F /* ViewController.swift in Sources */,
+				04A99D6A25989A2400AEE67F /* MenuViewController.swift in Sources */,
 				04A99D272595DBA900AEE67F /* AppDelegate.swift in Sources */,
 				04A99D292595DBA900AEE67F /* SceneDelegate.swift in Sources */,
+				04A99D80259C5BDA00AEE67F /* Order.swift in Sources */,
+				04A99D43259845FF00AEE67F /* DrinkMenu.swift in Sources */,
+				04A99D83259C670000AEE67F /* HomeViewController.swift in Sources */,
+				04A99D72259A131100AEE67F /* DrinkOrderViewController.swift in Sources */,
+				04A99D86259C6BFF00AEE67F /* OrdererTableViewCell.swift in Sources */,
+				04A99D75259A13BE00AEE67F /* CustomSelectionEnum.swift in Sources */,
+				04A99D67259896DB00AEE67F /* MenuCollectionViewCell.swift in Sources */,
+				04A99D78259A265700AEE67F /* DrinkOrderTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
