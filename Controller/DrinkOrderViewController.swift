@@ -33,18 +33,17 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     var orderPrice: Int?
     var feedPrice = 0
     
-    var sizeChecked = [Bool]()
-    var tempChecked = [Bool]()
-    var sugarChecked = [Bool]()
-    var feedChecked = [Bool]()
+    var sizeChecked = Array(repeating: false, count: Size.allCases.count)
+    var tempChecked = Array(repeating: false, count: Temp.allCases.count)
+    var sugarChecked = Array(repeating: false, count: Sugar.allCases.count)
+    var feedChecked = Array(repeating: false, count: Feed.allCases.count)
     
     let apiKey = "keyIbYMGvbvLMiZal"
-    let urlStr = "https://api.airtable.com/v0/appObOrAHeovNgbQb/OrdererData"
+    let urlStr = "https://api.airtable.com/v0/appObOrAHeovNgbQb/OrderData"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         display()
-        initCheck()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -189,13 +188,6 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.reloadData()
     }
     
-    func initCheck() {
-        sizeChecked = Array(repeating: false, count: Size.allCases.count)
-        tempChecked = Array(repeating: false, count: Temp.allCases.count)
-        sugarChecked = Array(repeating: false, count: Sugar.allCases.count)
-        feedChecked = Array(repeating: false, count: Feed.allCases.count)
-    }
-    
     func display() {
         if let drinkName = drinkName,
            let drinkDescribe = drinkDescribe {
@@ -232,7 +224,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         ordererName = textField.text
-        print(ordererName)
+        //print(ordererName)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -241,25 +233,19 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func postOrder() {
-        print(ordererName,
-              drinkName,
-              temp,
-              sugar,
-              size,
-              feed,
-              orderPrice,
-              drinkQuantity)
         
+        // 建立drinkOrder物件
         let orderData = OrderData(ordererName: ordererName, drinkName: drinkName, temp: temp, sugar: sugar, size: size, feed: feedToString(), price: orderPrice!, quantity: drinkQuantity)
         let drinkOrder = DrinkOrder(fields: orderData)
         
-
+        // set request method ＆content type
         let url = URL(string: urlStr)
         var urlRequest = URLRequest(url: url!)
         urlRequest.httpMethod = "POST"
         urlRequest.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
+        // 搭配jsonEncoder將自訂型別變成JSON格式的Data
         let jsonEncoder = JSONEncoder()
         print("bulid jsonEncoder")
         if let data = try? jsonEncoder.encode(drinkOrder) {
@@ -267,7 +253,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
             URLSession.shared.uploadTask(with: urlRequest, from: data) { (retData, res, err) in
                 if let response = res as? HTTPURLResponse,
                    response.statusCode == 200,
-                   err == nil{
+                   err == nil {
                     print("success")
                 } else {
                     print(err)

@@ -24,12 +24,3 @@ class OrdererTableViewCell: UITableViewCell {
     }
 
 }
-
-extension OrdererTableViewCell {
-    func getTextField() -> String {
-        if let ordererName = ordererNameTextField {
-            return ordererName.text!
-        }
-        return ""
-    }
-}

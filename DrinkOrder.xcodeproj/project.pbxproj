@@ -19,7 +19,6 @@
 		04A99D75259A13BE00AEE67F /* CustomSelectionEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D74259A13BE00AEE67F /* CustomSelectionEnum.swift */; };
 		04A99D78259A265700AEE67F /* DrinkOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D77259A265600AEE67F /* DrinkOrderTableViewCell.swift */; };
 		04A99D80259C5BDA00AEE67F /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D7F259C5BD700AEE67F /* Order.swift */; };
-		04A99D83259C670000AEE67F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D82259C66FF00AEE67F /* HomeViewController.swift */; };
 		04A99D86259C6BFF00AEE67F /* OrdererTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A99D85259C6BFF00AEE67F /* OrdererTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -38,7 +37,6 @@
 		04A99D74259A13BE00AEE67F /* CustomSelectionEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSelectionEnum.swift; sourceTree = "<group>"; };
 		04A99D77259A265600AEE67F /* DrinkOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkOrderTableViewCell.swift; sourceTree = "<group>"; };
 		04A99D7F259C5BD700AEE67F /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
-		04A99D82259C66FF00AEE67F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		04A99D85259C6BFF00AEE67F /* OrdererTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdererTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,7 +98,6 @@
 			children = (
 				04A99D6925989A2400AEE67F /* MenuViewController.swift */,
 				04A99D71259A130F00AEE67F /* DrinkOrderViewController.swift */,
-				04A99D82259C66FF00AEE67F /* HomeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -190,7 +187,6 @@
 				04A99D292595DBA900AEE67F /* SceneDelegate.swift in Sources */,
 				04A99D80259C5BDA00AEE67F /* Order.swift in Sources */,
 				04A99D43259845FF00AEE67F /* DrinkMenu.swift in Sources */,
-				04A99D83259C670000AEE67F /* HomeViewController.swift in Sources */,
 				04A99D72259A131100AEE67F /* DrinkOrderViewController.swift in Sources */,
 				04A99D86259C6BFF00AEE67F /* OrdererTableViewCell.swift in Sources */,
 				04A99D75259A13BE00AEE67F /* CustomSelectionEnum.swift in Sources */,

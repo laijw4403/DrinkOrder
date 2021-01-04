@@ -10,10 +10,12 @@ private let reuseIdentifier = "MenuCollectionViewCell"
 
 class MenuViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
+    
     @IBOutlet weak var menuCollectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var menuCollectionView: UICollectionView!
     var menuData: Array<Record> = []
-
+    let apiKey = "keyIbYMGvbvLMiZal"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -56,7 +58,7 @@ class MenuViewController: UIViewController, UICollectionViewDataSource, UICollec
     
     func fetchData() {
         print("fetch data...")
-        let apiKey = "keyIbYMGvbvLMiZal"
+        
         let urlStr = "https://api.airtable.com/v0/appObOrAHeovNgbQb/Menu?sort[][field]=sort"
         let url = URL(string: urlStr)
         var urlRequest = URLRequest(url: url!)
@@ -86,7 +88,7 @@ class MenuViewController: UIViewController, UICollectionViewDataSource, UICollec
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let controller = segue.destination as? DrinkOrderViewController
         if let item = menuCollectionView.indexPathsForSelectedItems?.first?.item {
-            print(menuData)
+            //print(menuData)
             controller?.drinkName = menuData[item].fields.drinkName
             controller?.drinkDescribe = menuData[item].fields.describe
             controller?.mediumPrice = menuData[item].fields.mediumPrice
