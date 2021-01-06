@@ -29,6 +29,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     var mediumPrice: Int!
     var largePrice: Int?
     var drinkQuantity = 1
+    var drinkImageURL: String!
     
     var orderPrice: Int?
     var feedPrice = 0
@@ -235,8 +236,8 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     func postOrder() {
         
         // 建立drinkOrder物件
-        let orderData = OrderData(ordererName: ordererName, drinkName: drinkName, temp: temp, sugar: sugar, size: size, feed: feedToString(), price: orderPrice!, quantity: drinkQuantity)
-        let drinkOrder = DrinkOrder(fields: orderData)
+        let orderData = OrderData(ordererName: ordererName, drinkName: drinkName, temp: temp, sugar: sugar, size: size, feed: feedToString(), price: orderPrice!, quantity: drinkQuantity, drinkImage: drinkImageURL)
+        let drinkOrder = PostDrinkOrder(fields: orderData)
         
         // set request method ＆content type
         let url = URL(string: urlStr)
@@ -251,6 +252,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         if let data = try? jsonEncoder.encode(drinkOrder) {
             print("try json encoder")
             URLSession.shared.uploadTask(with: urlRequest, from: data) { (retData, res, err) in
+                
                 if let response = res as? HTTPURLResponse,
                    response.statusCode == 200,
                    err == nil {

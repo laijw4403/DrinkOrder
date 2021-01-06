@@ -6,9 +6,15 @@
 //
 
 import Foundation
+struct OrderRecords: Codable {
+    var records: [DrinkOrder]
+}
+
 struct DrinkOrder: Codable {
+    var id: String
     var fields: OrderData
 }
+
 struct OrderData: Codable {
     var ordererName: String
     var drinkName: String
@@ -18,4 +24,6 @@ struct OrderData: Codable {
     var feed: String
     var price: Int
     var quantity: Int
+    var drinkImage: String
 }
+

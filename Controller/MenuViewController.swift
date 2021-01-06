@@ -7,14 +7,14 @@
 
 import UIKit
 private let reuseIdentifier = "MenuCollectionViewCell"
-
+public let apiKey = "keyIbYMGvbvLMiZal"
 class MenuViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
     
     @IBOutlet weak var menuCollectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var menuCollectionView: UICollectionView!
     var menuData: Array<Record> = []
-    let apiKey = "keyIbYMGvbvLMiZal"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +93,7 @@ class MenuViewController: UIViewController, UICollectionViewDataSource, UICollec
             controller?.drinkDescribe = menuData[item].fields.describe
             controller?.mediumPrice = menuData[item].fields.mediumPrice
             controller?.largePrice = menuData[item].fields.largePrice
+            controller?.drinkImageURL = menuData[item].fields.drinkImage[0].url
         }
     }
     
