@@ -66,6 +66,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
             return ""
         }
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let orderInfoType = OrderInfo.allCases[section]
         switch orderInfoType {
@@ -144,7 +145,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             return cell
         }
-       
+        
         
     }
     
@@ -229,8 +230,8 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-       self.view.endEditing(true)
-       return true
+        self.view.endEditing(true)
+        return true
     }
     
     func postOrder() {
@@ -252,7 +253,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         if let data = try? jsonEncoder.encode(drinkOrder) {
             print("try json encoder")
             URLSession.shared.uploadTask(with: urlRequest, from: data) { (retData, res, err) in
-                
+                // 檢查是否上傳成功
                 if let response = res as? HTTPURLResponse,
                    response.statusCode == 200,
                    err == nil {
@@ -265,6 +266,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     
+    // create String for add feed label
     func feedToString() -> String {
         var feedStr = ""
         for feed in feed {
@@ -273,9 +275,12 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         return feedStr
     }
     
+    
     @IBAction func addToOrderList(_ sender: Any) {
         let controller = UIAlertController(title: "加入訂單", message: "", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "確定", style: .default) { (_) in
+            // 檢查選項
+            guard self.checkOption() else { return }
             self.postOrder()
             self.dismiss(animated: true, completion: nil)
         }
@@ -283,6 +288,30 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         controller.addAction(confirmAction)
         controller.addAction(cancelAction)
         present(controller, animated: true, completion: nil)
+    }
+    
+    // check option should be selected
+    func checkOption() -> Bool {
+        var check = false
+        sizeChecked.forEach {
+            guard $0 == true else { return }
+            sugarChecked.forEach {
+                guard $0 == true else { return }
+                tempChecked.forEach {
+                    guard $0 == true else { return }
+                    guard let _ = ordererName else { return }
+                    check = true
+                }
+            }
+        }
+        
+        if check == false {
+            let controller = UIAlertController(title: "", message: "資料未填寫完全", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            controller.addAction(okAction)
+            present(controller, animated: true, completion: nil)
+        }
+        return check
     }
     /*
      // MARK: - Navigation
