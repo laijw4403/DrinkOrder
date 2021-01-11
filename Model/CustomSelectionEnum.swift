@@ -49,3 +49,10 @@ enum FeedPrice: Int, CaseIterable {
     case black = 15
 }
 
+// cast String as Enum
+extension CaseIterable {
+    static func from(string: String) -> Self? {
+        return Self.allCases.first { string == "\($0)" }
+    }
+    func toString() -> String { "\(self)" }
+}

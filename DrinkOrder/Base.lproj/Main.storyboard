@@ -115,7 +115,7 @@
                                     <constraint firstAttribute="height" constant="493" id="JEm-LW-Uyy"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrderListTableViewCell" rowHeight="120" id="Zeq-W6-sHg" customClass="OrderListTableViewCell" customModule="DrinkOrder" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OrderListTableViewCell" rowHeight="120" id="Zeq-W6-sHg" customClass="OrderListTableViewCell" customModule="DrinkOrder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zeq-W6-sHg" id="A89-Oc-82v">
@@ -241,6 +241,7 @@
                                             <outlet property="drinkSugarLabel" destination="DBs-hM-mqB" id="gXl-gq-hEg"/>
                                             <outlet property="drinkTempLabel" destination="k4s-no-y53" id="dGF-EV-DVW"/>
                                             <outlet property="ordererNameLabel" destination="9U3-M0-10Q" id="vCi-Bn-Eah"/>
+                                            <segue destination="OlU-YO-iRh" kind="show" id="ulk-Bl-RhO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -365,7 +366,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9GY-sR-dWP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2601.449275362319" y="-1647.554347826087"/>
+            <point key="canvasLocation" x="1901" y="-1620"/>
         </scene>
         <!--Drink Order View Controller-->
         <scene sceneID="ow1-Hd-aYY">
@@ -494,7 +495,7 @@
                                     <constraint firstAttribute="height" constant="476" id="cRR-wK-Dvs"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="OrdererTableViewCell" rowHeight="94" id="2VU-g9-sCo" customClass="OrdererTableViewCell" customModule="DrinkOrder" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="OrdererTableViewCell" rowHeight="94" id="2VU-g9-sCo" customClass="OrdererTableViewCell" customModule="DrinkOrder" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="94"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2VU-g9-sCo" id="6O1-Kf-y7B">
@@ -646,7 +647,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jKn-FX-X8q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2717.3913043478265" y="-2395.108695652174"/>
+            <point key="canvasLocation" x="2977" y="-2030"/>
         </scene>
         <!--Tab Controller-->
         <scene sceneID="ou1-Ar-R0N">
@@ -668,6 +669,9 @@
             <point key="canvasLocation" x="977" y="-2395"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ulk-Bl-RhO"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="banner-2" width="1920" height="903"/>
         <image name="cart" catalog="system" width="128" height="102"/>

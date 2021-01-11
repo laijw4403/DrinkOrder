@@ -10,7 +10,4 @@ import Foundation
 //struct PostOrderRecords: Codable {
 //    var records: [PostDrinkOrder]
 //}
-struct PostDrinkOrder: Codable {
-    var fields: OrderData
-}
 

@@ -18,7 +18,10 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var drinkQuantityLabel: UILabel!
     @IBOutlet weak var addToOrderListButton: UIButton!
     
-    var ordererName: String!
+    var delegate: OrderListViewController?
+    
+    var menuData: Array<Record> = []
+    var ordererName: String?
     var drinkName: String!
     var drinkDescribe: String?
     var sugar: String!
@@ -30,6 +33,8 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     var largePrice: Int?
     var drinkQuantity = 1
     var drinkImageURL: String!
+    var updateOrderData = false
+    var orderDataID: String?
     
     var orderPrice: Int?
     var feedPrice = 0
@@ -44,6 +49,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getDrinkData()
         display()
     }
     
@@ -73,8 +79,9 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         case .orderer:
             return 1
         case .size :
-            guard let _ = largePrice else { return 1 }
-            return Size.allCases.count
+            // 熟成檸果&墨玉歐特 只有中杯
+            guard drinkName == "熟成檸果" || drinkName == "墨玉歐特" else { return Size.allCases.count }
+            return 1
         case .sugar :
             return Sugar.allCases.count
         case .temp :
@@ -93,12 +100,15 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.ordererLabel.text = "訂購人"
             cell.ordererNameTextField.placeholder = "請輸入名字"
             cell.ordererNameTextField.delegate = self
+            guard let ordererName = ordererName else { return cell }
+            cell.ordererNameTextField.text = ordererName
             return cell
         case .size :
             let cell = customSelectionTableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! DrinkOrderTableViewCell
             cell.addPriceLabel.isHidden = true
             cell.addFeedPriceLabel.isHidden = true
             cell.selectionLabel.text = Size.allCases[indexPath.row].rawValue
+            
             if sizeChecked[indexPath.row] {
                 cell.radioButtonImage.image = UIImage(named: "radio_on")
             } else {
@@ -110,6 +120,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.addPriceLabel.isHidden = true
             cell.addFeedPriceLabel.isHidden = true
             cell.selectionLabel.text = Sugar.allCases[indexPath.row].rawValue
+            
             if sugarChecked[indexPath.row] {
                 cell.radioButtonImage.image = UIImage(named: "radio_on")
             } else {
@@ -121,6 +132,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.addPriceLabel.isHidden = true
             cell.addFeedPriceLabel.isHidden = true
             cell.selectionLabel.text = Temp.allCases[indexPath.row].rawValue
+            
             if tempChecked[indexPath.row] {
                 cell.radioButtonImage.image = UIImage(named: "radio_on")
             } else {
@@ -130,6 +142,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         case .feed :
             let cell = customSelectionTableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as! DrinkOrderTableViewCell
             cell.selectionLabel.text = Feed.allCases[indexPath.row].rawValue
+            
             if feedChecked[indexPath.row] {
                 cell.radioButtonImage.image = UIImage(named: "radio_on")
             } else {
@@ -190,21 +203,57 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         tableView.reloadData()
     }
     
+    // MARK: Display UI
     func display() {
-        if let drinkName = drinkName,
-           let drinkDescribe = drinkDescribe {
-            drinkNameLabel.text = drinkName
-            drinkDescribeLabel.text = drinkDescribe
+        print("Display UI")
+        if updateOrderData {
+            addToOrderListButton.setTitle("修改訂單", for: .normal)
+            optionCheckForUpdateMode()
         } else {
-            drinkNameLabel.text = drinkName
-            drinkDescribeLabel.text = ""
+            addToOrderListButton.setTitle("加入訂單", for: .normal)
+            drinkPrice = mediumPrice
         }
-        drinkPrice = mediumPrice
         showOrderPrice()
+        drinkNameLabel.text = drinkName
+        drinkDescribeLabel.text = drinkDescribe
     }
     
+    // 設定修改模式時的optionCheck
+    func optionCheckForUpdateMode() {
+        sizeChecked[Size.allCases.firstIndex(of: Size(rawValue: size)!)!] = true
+        sugarChecked[Sugar.allCases.firstIndex(of: Sugar(rawValue: sugar)!)!] = true
+        tempChecked[Temp.allCases.firstIndex(of: Temp(rawValue: temp)!)!] = true
+        for index in 0...1 {
+            if let feedString = Feed(rawValue: feed[index]),
+               let index = Feed.allCases.firstIndex(of: feedString) {
+                feedChecked[Int(index)] = true
+            }
+        }
+    }
+    
+    // 取得對應飲料的資料
+    func getDrinkData() {
+        guard let data = Record.readDrinkDataFromFile() else { return }
+        menuData = data
+        guard let drinkName = drinkName else { return }
+        menuData.forEach { (Record) in
+            if drinkName == Record.fields.drinkName {
+                print(Record.fields)
+                print("drinkName:\(drinkName)")
+                self.drinkDescribe = Record.fields.describe
+                self.drinkImageURL = Record.fields.drinkImage[0].url
+                self.mediumPrice = Record.fields.mediumPrice
+                guard let largePrice = Record.fields.largePrice else { return }
+                self.largePrice = largePrice
+            }
+        }
+    }
+    
+    // update mode selected size & feed will error
     func showOrderPrice() {
+        print("show Order Price")
         orderPrice = (drinkPrice + feedPrice) * drinkQuantity
+        drinkQuantityLabel.text = drinkQuantity.description
         orderPriceLabel.text = orderPrice?.description
     }
     
@@ -234,16 +283,30 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         return true
     }
     
-    func postOrder() {
-        
+    // MARK: POST / UPDATE DATA
+    func sentOrderRequest() {
         // 建立drinkOrder物件
-        let orderData = OrderData(ordererName: ordererName, drinkName: drinkName, temp: temp, sugar: sugar, size: size, feed: feedToString(), price: orderPrice!, quantity: drinkQuantity, drinkImage: drinkImageURL)
+        let orderData = OrderData(ordererName: ordererName!, drinkName: drinkName, temp: temp, sugar: sugar, size: size, feed: feedToString(), quantity: drinkQuantity, drinkImage: drinkImageURL)
         let drinkOrder = PostDrinkOrder(fields: orderData)
         
-        // set request method ＆content type
-        let url = URL(string: urlStr)
+        // set request method ＆ content type
+        let url: URL?
+        if updateOrderData {
+            guard let id = orderDataID else { return }
+            let updateURL = urlStr + "/\(id)"
+            url = URL(string: updateURL)!
+        } else {
+            url = URL(string: urlStr)!
+        }
+        
         var urlRequest = URLRequest(url: url!)
-        urlRequest.httpMethod = "POST"
+        if updateOrderData {
+            urlRequest.httpMethod = "PUT"
+        } else {
+            urlRequest.httpMethod = "POST"
+        }
+        
+        // set HTTPHeaderField
         urlRequest.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
@@ -260,11 +323,12 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
                     print("success")
                 } else {
                     print(err)
-                    print("error")
+                    
                 }
             }.resume()
         }
     }
+    
     
     // create String for add feed label
     func feedToString() -> String {
@@ -277,12 +341,22 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     
     
     @IBAction func addToOrderList(_ sender: Any) {
-        let controller = UIAlertController(title: "加入訂單", message: "", preferredStyle: .alert)
+        var addToOrderListtButtonTitle: String!
+        if addToOrderListButton.titleLabel?.text == "加入訂單" {
+            addToOrderListtButtonTitle = "加入訂單"
+        } else {
+            addToOrderListtButtonTitle = "修改訂單"
+        }
+        let controller = UIAlertController(title: addToOrderListtButtonTitle, message: "", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "確定", style: .default) { (_) in
             // 檢查選項
             guard self.checkOption() else { return }
-            self.postOrder()
-            self.dismiss(animated: true, completion: nil)
+            
+            // 將訂單上傳至Database
+            self.sentOrderRequest()
+            self.dismiss(animated: true) {
+                self.delegate?.updateUI()
+            }
         }
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
         controller.addAction(confirmAction)
@@ -292,6 +366,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // check option should be selected
     func checkOption() -> Bool {
+        print(sizeChecked,sugarChecked,tempChecked,ordererName)
         var check = false
         sizeChecked.forEach {
             guard $0 == true else { return }
@@ -313,6 +388,7 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return check
     }
+    
     /*
      // MARK: - Navigation
      
@@ -323,4 +399,9 @@ class DrinkOrderViewController: UIViewController, UITableViewDelegate, UITableVi
      }
      */
     
+    /*
+    func getDrinkDescribe(drinkName: DrinkDescribe) -> String {
+        return drinkName.rawValue
+    }
+    */
 }

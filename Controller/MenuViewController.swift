@@ -10,17 +10,19 @@ private let reuseIdentifier = "MenuCollectionViewCell"
 public let apiKey = "keyIbYMGvbvLMiZal"
 class MenuViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
     
-    
     @IBOutlet weak var menuCollectionViewFlowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var menuCollectionView: UICollectionView!
     var menuData: Array<Record> = []
-    
+    let urlStr = "https://api.airtable.com/v0/appObOrAHeovNgbQb/Menu?sort[][field]=sort"
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setCell()
-        fetchData()
+        fetchData(urlStr: urlStr) { (menuData) in
+            guard let menuData = menuData else { return }
+            Record.saveToFile(records: menuData)
+        }
     }
     
     
@@ -56,10 +58,10 @@ class MenuViewController: UIViewController, UICollectionViewDataSource, UICollec
         menuCollectionViewFlowLayout.minimumLineSpacing = 10
     }
     
-    func fetchData() {
+    // MARK: 下載菜單
+    func fetchData(urlStr: String, completionHandler: @escaping ([Record]?) -> Void) {
         print("fetch data...")
         
-        let urlStr = "https://api.airtable.com/v0/appObOrAHeovNgbQb/Menu?sort[][field]=sort"
         let url = URL(string: urlStr)
         var urlRequest = URLRequest(url: url!)
         urlRequest.httpMethod = "Get"
@@ -72,6 +74,7 @@ class MenuViewController: UIViewController, UICollectionViewDataSource, UICollec
                     let result = try decoder.decode(ResponseData.self, from: data)
                     print("decode success")
                     self.menuData = result.records
+                    completionHandler(result.records)
                     DispatchQueue.main.async {
                         self.menuCollectionView.reloadData()
                     }
@@ -90,12 +93,6 @@ class MenuViewController: UIViewController, UICollectionViewDataSource, UICollec
         if let item = menuCollectionView.indexPathsForSelectedItems?.first?.item {
             //print(menuData)
             controller?.drinkName = menuData[item].fields.drinkName
-            controller?.drinkDescribe = menuData[item].fields.describe
-            controller?.mediumPrice = menuData[item].fields.mediumPrice
-            controller?.largePrice = menuData[item].fields.largePrice
-            controller?.drinkImageURL = menuData[item].fields.drinkImage[0].url
         }
     }
-    
-
 }
